@@ -3,6 +3,7 @@ using System;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20240930211239_VendasMigration")]
+    partial class VendasMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,11 +52,11 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("94079bec-6f4d-472b-aa97-f28865e2ca08"),
-                            CreateAt = new DateTime(2024, 9, 30, 18, 55, 4, 691, DateTimeKind.Local).AddTicks(7038),
+                            Id = new Guid("dc680c81-2817-4e9b-b97a-a9d928046176"),
+                            CreateAt = new DateTime(2024, 9, 30, 17, 12, 39, 505, DateTimeKind.Local).AddTicks(8404),
                             Email = "mfrinfo@mail.com",
                             Name = "Administrador",
-                            UpdateAt = new DateTime(2024, 9, 30, 18, 55, 4, 691, DateTimeKind.Local).AddTicks(7051)
+                            UpdateAt = new DateTime(2024, 9, 30, 17, 12, 39, 505, DateTimeKind.Local).AddTicks(8422)
                         });
                 });
 
@@ -107,6 +109,12 @@ namespace Data.Migrations
                     b.Property<decimal>("Desconto")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<Guid?>("Id_Produtos")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("Id_Vendas")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -123,12 +131,27 @@ namespace Data.Migrations
                     b.Property<decimal>("ValorUnitario")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<Guid>("Vendas")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("Id_Vendas");
+
                     b.ToTable("Produtos", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.ProdutoEntity", b =>
+                {
+                    b.HasOne("Domain.Entities.ComprarEntity", "Vendas")
+                        .WithMany("Produtos")
+                        .HasForeignKey("Id_Vendas")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("Fk_Id_Vendas_Produtos");
+
+                    b.Navigation("Vendas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ComprarEntity", b =>
+                {
+                    b.Navigation("Produtos");
                 });
 #pragma warning restore 612, 618
         }
