@@ -1,9 +1,10 @@
-﻿using Domain.Interfaces.Services.Book;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System;
 using System.Threading.Tasks;
+using Domain.Dtos.Comprar;
+using Domain.Interfaces.Services.Vendas;
 
 namespace application.Controllers
 {
@@ -11,17 +12,17 @@ namespace application.Controllers
     [ApiController]
     public class ComprasController : ControllerBase
     {
-        public IBookServices _service { get; set; }
+        public IVendasService _service { get; set; }
 
-        public ComprasController(IBookServices service)
+        public ComprasController(IVendasService service)
         {
             _service = service;
         }
 
-        [Authorize("Bearer")]
-        [HttpGet]
-        [Route("{bookName}")]
-        public async Task<ActionResult> SearchName(string bookName)
+        
+        [HttpPost]
+        [Route("criar")]
+        public async Task<IActionResult> CriandoVendas([FromBody] CompraDto venda)
         {
             if (!ModelState.IsValid)
             {
@@ -29,7 +30,15 @@ namespace application.Controllers
             }
             try
             {
-                return Ok(await _service.SearchName(bookName));
+                var result = await _service.Post(venda);
+                if (result != null) 
+                {
+                    return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (ArgumentException e)
             {
@@ -38,9 +47,9 @@ namespace application.Controllers
         }
 
         [Authorize("Bearer")]
-        [HttpGet]
-        [Route("{author}")]
-        public async Task<ActionResult> SearchAuthor(string author)
+        [HttpPut]
+        [Route("alterar")]
+        public async Task<ActionResult> AlterandoVenda([FromBody] CompraDto venda)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +57,34 @@ namespace application.Controllers
             }
             try
             {
-                return Ok(await _service.SearchAuthor(author));
+                var result = await _service.Post(venda);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpDelete]
+        [Route("cancelar/{id}")]
+        public async Task<ActionResult> CancelandoVenda(Guid idVenda)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);  // 400 Bad Request - Solicitação Inválida
+            }
+            try
+            {
+                return Ok(await _service.Delete(idVenda));
             }
             catch (ArgumentException e)
             {

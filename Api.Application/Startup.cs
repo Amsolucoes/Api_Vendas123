@@ -15,6 +15,9 @@ using Api.CrossCutting.Mappings;
 using AutoMapper;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using application.Extensoes;
+using Serilog;
 
 namespace application
 {
@@ -42,6 +45,9 @@ namespace application
                 Environment.SetEnvironmentVariable("Seconds", "28800");
             //}
             services.AddControllers();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddApplication();
+            services.AddSingleton(Log.Logger);
 
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
@@ -95,19 +101,19 @@ namespace application
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Curso de API com AspNetCore 3.1 - Na Prática",
+                    Title = "API de Vendas",
                     Description = "Arquitetura DDD",
-                    TermsOfService = new Uri("http://www.mfrinfo.com.br"),
+                    TermsOfService = new Uri("https://github.com/Amsolucoes"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Marcos Fabricio Rosa",
-                        Email = "mfr@mail.com",
-                        Url = new Uri("http://www.mfrinfo.com.br")
+                        Name = "Andre Luis Ivarras Athayde Avelino",
+                        Email = "andre.ivarras@gmail.com",
+                        Url = new Uri("https://github.com/Amsolucoes")
                     },
                     License = new OpenApiLicense
                     {
                         Name = "Termo de Licença de Uso",
-                        Url = new Uri("http://www.mfrinfo.com.br")
+                        Url = new Uri("https://github.com/Amsolucoes")
                     }
                 });
 
@@ -143,7 +149,7 @@ namespace application
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Curso de API com AspNetCore 3.1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API de Vendas");
                 c.RoutePrefix = string.Empty;
             });
 

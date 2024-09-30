@@ -10,7 +10,8 @@ namespace Api.Data.Context
     public class MyContext : DbContext
     {
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<BookEntity> Books { get; set; }
+        public DbSet<ComprarEntity> Vendas { get; set; }
+        public DbSet<ProdutoEntity> Produtos { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options)
         {
@@ -20,7 +21,8 @@ namespace Api.Data.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserEntity>(new UserMap().Configure);
-            modelBuilder.Entity<BookEntity>(new BookMap().Configure);
+            modelBuilder.Entity<ComprarEntity>(new VendasMap().Configure);
+            modelBuilder.Entity<ProdutoEntity>(new ProdutosMap().Configure);
 
             modelBuilder.Entity<UserEntity>().HasData(
                 new UserEntity

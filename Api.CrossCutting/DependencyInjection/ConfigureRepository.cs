@@ -25,7 +25,7 @@ namespace Api.CrossCutting.DependencyInjection
             else
             {
                 serviceCollection.AddDbContext<MyContext>(
-                    options => options.UseMySql(Environment.GetEnvironmentVariable("DB_CONNECTION"))
+                    options => options.UseMySql(Environment.GetEnvironmentVariable("DB_CONNECTION"), ServerVersion.AutoDetect(Environment.GetEnvironmentVariable("DB_CONNECTION")))
                 );
             }
         }

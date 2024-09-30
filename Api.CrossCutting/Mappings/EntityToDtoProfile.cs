@@ -1,6 +1,8 @@
 using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using AutoMapper;
+using Domain.Dtos.Comprar;
+using Domain.Entities;
 
 namespace Api.CrossCutting.Mappings
 {
@@ -16,6 +18,9 @@ namespace Api.CrossCutting.Mappings
 
             CreateMap<UserDtoUpdateResult, UserEntity>()
                .ReverseMap();
+
+            CreateMap<CompraDto, ComprarEntity>()
+                .ReverseMap();
 
         }
     }
