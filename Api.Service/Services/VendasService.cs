@@ -6,6 +6,7 @@ using Domain.Interfaces.Services.Vendas;
 using Domain.Models;
 using Serilog;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Service.Services
@@ -13,6 +14,8 @@ namespace Service.Services
     public class VendasService : IVendasService
     {
         private IRepository<ComprarEntity> _repository;
+
+        private IRepository<ProdutoEntity> _produtoRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
@@ -32,24 +35,23 @@ namespace Service.Services
 
         public async Task<CompraDto> Post(CompraDto compra)
         {
-            _logger.Information("Iniciando criação de compra.");
+            var model = _mapper.Map<CompraModel>(compra);
+            var entity = _mapper.Map<ComprarEntity>(model);
 
-            if (compra != null)
+            if (compra.ProdutosIds != null && compra.ProdutosIds.Any())
             {
-                var model = _mapper.Map<CompraModel>(compra);
-                var entity = _mapper.Map<ComprarEntity>(model);
-                var result = await _repository.UpdateAsync(entity);
-
-                await _repository.InsertAsync(result);
-
-                _logger.Information("Finalizando Criação de compra.");
-
-                return _mapper.Map<CompraDto>(result);
+                foreach (var produtoId in compra.ProdutosIds)
+                {
+                    var produto = await _produtoRepository.SelectAsync(produtoId);
+                    if (produto != null)
+                    {
+                        entity.AdicionarProduto(produto);
+                    }
+                }
             }
 
-            _logger.Information("Não foi possível criar compra.");
-
-            return null;
+            var result = await _repository.InsertAsync(entity);
+            return _mapper.Map<ComprarEntity>(result);
         }
 
         public async Task<CompraDto> Put(CompraDto compra)

@@ -1,12 +1,15 @@
 ﻿using Api.Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
     public class ProdutoEntity : BaseEntity
     {
-        public string Nome { get; private set; }
-
+        public string Nome { get;  set; }
+        
+        public decimal Preco { get; set; }
+        
         public int Quantidade { get; private set; }
 
         public decimal ValorUnitario { get; private set; }
@@ -21,16 +24,11 @@ namespace Domain.Entities
 
         public ProdutoEntity() { }
 
-        public void AlterarNome(string nome) => Nome = nome;
-
-        public void AlterarQuantidadeProdutos(int quantidade) => Quantidade = quantidade;
-
-        public void AlterarValorUnitário(decimal valorUnitario) => ValorUnitario = valorUnitario;
-
-        public void AlterarDesconto(decimal desconto) => Desconto = desconto;
-
-        public void AlterarValorTotal(decimal valorTotalProdutos) => ValorTotal = valorTotalProdutos;
-
-        public void AlterarCancelado(bool cancelado) => Cancelado = cancelado;
+        public ProdutoEntity(string nome, decimal preco)
+        {
+            Nome = nome;
+            Preco = preco;
+        }
+        public ICollection<ComprarEntity> Compras { get; set; }
     }
 }

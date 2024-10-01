@@ -3,6 +3,7 @@ using System;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20241001141400_CriarTabelaProdutos")]
+    partial class CriarTabelaProdutos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,11 +52,11 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d311c19b-8329-4d8c-bfd3-79ba3dcd9d66"),
-                            CreateAt = new DateTime(2024, 10, 1, 10, 31, 21, 709, DateTimeKind.Local).AddTicks(8942),
-                            Email = "andreluis@mail.com",
+                            Id = new Guid("d28debd0-290f-4fc0-8084-501982a440ad"),
+                            CreateAt = new DateTime(2024, 10, 1, 11, 13, 59, 967, DateTimeKind.Local).AddTicks(9399),
+                            Email = "mfrinfo@mail.com",
                             Name = "Administrador",
-                            UpdateAt = new DateTime(2024, 10, 1, 10, 31, 21, 709, DateTimeKind.Local).AddTicks(8955)
+                            UpdateAt = new DateTime(2024, 10, 1, 11, 13, 59, 967, DateTimeKind.Local).AddTicks(9410)
                         });
                 });
 
@@ -79,8 +81,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("Cliente")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Cliente")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
@@ -92,6 +95,7 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Numero")
+                        .HasMaxLength(100)
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateAt")
@@ -114,9 +118,6 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("Desconto")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -128,12 +129,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(65,30)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Id_Venda");
 
                     b.ToTable("Produtos", (string)null);
                 });
@@ -151,7 +147,7 @@ namespace Data.Migrations
                         .HasForeignKey("ProdutosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                        
+                });
 #pragma warning restore 612, 618
         }
     }

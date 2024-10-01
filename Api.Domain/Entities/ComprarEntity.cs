@@ -16,6 +16,16 @@ namespace Domain.Entities
 
         public int Filial { get; private set; }
 
+        public ICollection<ProdutoEntity> Produtos { get; private set; }
+
+        public ComprarEntity()
+        {
+            Produtos = new List<ProdutoEntity>();
+        }
+
+        // Métodos de alteração
+        public void AdicionarProduto(ProdutoEntity produto) => Produtos.Add(produto);
+
         public IEnumerable<ProdutoEntity> Produto { get; private set; }
 
         public ComprarEntity() { }
