@@ -37,12 +37,12 @@ namespace application
         {
             //if (_environment.IsEnvironment("Testing"))
             //{
-                Environment.SetEnvironmentVariable("DB_CONNECTION", "Persist Security Info=True;Server=127.0.0.1;Port=3306;DataBase=dbAPI_Integration;Uid=root;Pwd=Al*301983*");
-                Environment.SetEnvironmentVariable("DATABASE", "MYSQL");
-                Environment.SetEnvironmentVariable("MIGRATION", "APLICAR");
-                Environment.SetEnvironmentVariable("Audience", "ExemploAudience");
-                Environment.SetEnvironmentVariable("Issuer", "ExemploIssue");
-                Environment.SetEnvironmentVariable("Seconds", "28800");
+            Environment.SetEnvironmentVariable("DB_CONNECTION", "Persist Security Info=True;Server=127.0.0.1;Port=3306;DataBase=dbapi;Uid=root;Pwd=Lua95175323@");
+            Environment.SetEnvironmentVariable("DATABASE", "MYSQL");
+            Environment.SetEnvironmentVariable("MIGRATION", "APLICAR");
+            Environment.SetEnvironmentVariable("Audience", "ExemploAudience");
+            Environment.SetEnvironmentVariable("Issuer", "ExemploIssue");
+            Environment.SetEnvironmentVariable("Seconds", "28800");
             //}
             services.AddControllers();
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
