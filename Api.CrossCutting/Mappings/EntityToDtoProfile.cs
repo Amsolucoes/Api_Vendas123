@@ -22,6 +22,9 @@ namespace Api.CrossCutting.Mappings
             CreateMap<CompraDto, ComprarEntity>()
                 .ReverseMap();
 
+            CreateMap<ProdutoDto, ProdutoEntity>()
+                .ReverseMap();
+
         }
     }
 }
