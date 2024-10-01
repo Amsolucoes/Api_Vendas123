@@ -5,6 +5,8 @@ namespace Domain.Dtos.Comprar
 {
     public class CompraDto
     {
+        public Guid Id { get; set; }
+
         public int Numero { get; set; }
 
         public DateTime DataVenda { get; set; }

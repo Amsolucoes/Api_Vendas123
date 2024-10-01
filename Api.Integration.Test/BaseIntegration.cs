@@ -4,9 +4,9 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Api.CrossCutting.Mappings;
 using Api.Data.Context;
-using Api.Domain.Dtos;
 using application;
 using AutoMapper;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +42,7 @@ namespace Api.Integration.Test
         {
             var loginDto = new LoginDto()
             {
-                Email = "mfrinfo@mail.com"
+                Email = "andreluis@mail.com"
             };
 
             var resultLogin = await PostJsonAsync(loginDto, $"{hostApi}login", client);

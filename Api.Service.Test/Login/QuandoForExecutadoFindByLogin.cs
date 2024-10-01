@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using Api.Domain.Dtos;
 using Api.Domain.Interfaces.Services.User;
+using Domain.Dtos;
 using Moq;
 using Xunit;
 

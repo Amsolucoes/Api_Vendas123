@@ -26,6 +26,16 @@ namespace Domain.Entities
         // Métodos de alteração
         public void AdicionarProduto(ProdutoEntity produto) => Produtos.Add(produto);
 
+        public IEnumerable<ProdutoEntity> Produto { get; private set; }
+
+        public ComprarEntity() { }
+
+        public ComprarEntity(Guid id, DateTime createAt) 
+        {
+            Id = id;
+            CreateAt = createAt;
+        }
+
         public void AlterarNumeroCompra(int numeroCompra) => Numero = numeroCompra;
 
         public void AlterarDataVenda(DateTime dataVenda) => DataVenda = dataVenda;

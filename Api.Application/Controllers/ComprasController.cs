@@ -33,7 +33,7 @@ namespace application.Controllers
                 var result = await _service.Post(venda);
                 if (result != null) 
                 {
-                    return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
+                    return Created(new Uri(Url.Link("GetWithId", new { id = result.Numero })), result);
                 }
                 else
                 {
@@ -46,7 +46,6 @@ namespace application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpPut]
         [Route("alterar")]
         public async Task<ActionResult> AlterandoVenda([FromBody] CompraDto venda)
@@ -57,7 +56,7 @@ namespace application.Controllers
             }
             try
             {
-                var result = await _service.Post(venda);
+                var result = await _service.Put(venda);
                 if (result != null)
                 {
                     return Ok(result);
@@ -73,9 +72,8 @@ namespace application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpDelete]
-        [Route("cancelar/{id}")]
+        [Route("cancelar")]
         public async Task<ActionResult> CancelandoVenda(Guid idVenda)
         {
             if (!ModelState.IsValid)
@@ -85,6 +83,25 @@ namespace application.Controllers
             try
             {
                 return Ok(await _service.Delete(idVenda));
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpGet]
+        [Route("buscar")]
+        public async Task<ActionResult> BuscarVenda(Guid idVenda)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);  // 400 Bad Request - Solicitação Inválida
+            }
+            try
+            {
+                return Ok(await _service.GetCompra(idVenda));
             }
             catch (ArgumentException e)
             {

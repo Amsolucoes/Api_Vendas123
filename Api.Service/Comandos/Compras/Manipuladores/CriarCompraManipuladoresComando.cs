@@ -1,8 +1,8 @@
 ﻿using Api.Domain.Entities;
-using Api.Domain.Interfaces;
 using Api.Domain.Models;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Models;
 using MediatR;
 using Serilog;

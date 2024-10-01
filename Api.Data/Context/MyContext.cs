@@ -1,5 +1,4 @@
 using System;
-using Api.Data.Mapping;
 using Api.Domain.Entities;
 using Data.Mapping;
 using Domain.Entities;
@@ -29,7 +28,7 @@ namespace Api.Data.Context
                 {
                     Id = Guid.NewGuid(),
                     Name = "Administrador",
-                    Email = "mfrinfo@mail.com",
+                    Email = "andreluis@mail.com",
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
                 }
