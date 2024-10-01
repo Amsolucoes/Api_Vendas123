@@ -19,7 +19,8 @@ namespace application.Controllers
             _service = service;
         }
 
-        
+
+        [Authorize("Bearer")]
         [HttpPost]
         [Route("criar")]
         public async Task<IActionResult> CriandoVendas([FromBody] CompraDto venda)
@@ -46,6 +47,7 @@ namespace application.Controllers
             }
         }
 
+        [Authorize("Bearer")]
         [HttpPut]
         [Route("alterar")]
         public async Task<ActionResult> AlterandoVenda([FromBody] CompraDto venda)
@@ -72,6 +74,7 @@ namespace application.Controllers
             }
         }
 
+        [Authorize("Bearer")]
         [HttpDelete]
         [Route("cancelar")]
         public async Task<ActionResult> CancelandoVenda(Guid idVenda)

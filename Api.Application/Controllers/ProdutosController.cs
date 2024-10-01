@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Domain.Interfaces.Services.Produtos;
 using Domain.Dtos.Comprar;
+using Microsoft.AspNetCore.Authorization;
 
 namespace application.Controllers
 {
@@ -17,6 +18,7 @@ namespace application.Controllers
             _service = service;
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("listar")]
         public async Task<IActionResult> ListarProdutos()
@@ -32,6 +34,7 @@ namespace application.Controllers
             }
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> ObterProdutoPorId(Guid id)
@@ -50,6 +53,7 @@ namespace application.Controllers
             }
         }
 
+        [Authorize("Bearer")]
         [HttpPost]
         [Route("criar")]
         public async Task<IActionResult> CriarProduto([FromBody] ProdutoDto produtoDto)

@@ -3,7 +3,6 @@ using System;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
@@ -50,11 +49,11 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a1de6e75-5e23-4455-964e-76a20e801ff5"),
-                            CreateAt = new DateTime(2024, 10, 1, 11, 36, 31, 48, DateTimeKind.Local).AddTicks(6602),
+                            Id = new Guid("d311c19b-8329-4d8c-bfd3-79ba3dcd9d66"),
+                            CreateAt = new DateTime(2024, 10, 1, 10, 31, 21, 709, DateTimeKind.Local).AddTicks(8942),
                             Email = "andreluis@mail.com",
                             Name = "Administrador",
-                            UpdateAt = new DateTime(2024, 10, 1, 11, 36, 31, 48, DateTimeKind.Local).AddTicks(6614)
+                            UpdateAt = new DateTime(2024, 10, 1, 10, 31, 21, 709, DateTimeKind.Local).AddTicks(8955)
                         });
                 });
 
@@ -114,6 +113,9 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<decimal>("Desconto")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -125,7 +127,12 @@ namespace Data.Migrations
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(65,30)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Id_Venda");
 
                     b.ToTable("Produtos", (string)null);
                 });
@@ -143,8 +150,10 @@ namespace Data.Migrations
                         .HasForeignKey("ProdutosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
+
 #pragma warning restore 612, 618
+                });
+
         }
     }
 }
