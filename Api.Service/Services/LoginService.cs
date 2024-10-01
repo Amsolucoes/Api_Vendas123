@@ -3,11 +3,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Api.Domain.Dtos;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Repository;
 using Api.Domain.Security;
+using Domain.Dtos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

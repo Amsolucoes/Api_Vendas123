@@ -30,9 +30,10 @@ namespace Data.Mapping
             builder.Property(p => p.Cancelado)
                 .IsRequired(true);
 
-            builder.Property(p => p.Vendas)
-                 .IsRequired(true);
-
+            builder.HasOne(p => p.Venda)
+                .WithMany(p => p.Produto)
+                .HasForeignKey("Id_Venda")
+                .HasConstraintName("Fk_Id_Venda_Venda");
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Domain.Entities;
-using Api.Domain.Interfaces;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Repository
