@@ -13,14 +13,12 @@ namespace Data.Mapping
             builder.HasKey(x => x.Id);
 
             builder.Property(b => b.Numero)
-                .IsRequired()
-                .HasMaxLength(100);
+                .IsRequired();
 
             builder.Property(b => b.DataVenda)
                 .IsRequired();
 
             builder.Property(b => b.Cliente)
-                .HasColumnType("varchar(100)")
                 .IsRequired();
 
             builder.Property(b => b.ValorTotalVendas)
@@ -28,6 +26,11 @@ namespace Data.Mapping
 
             builder.Property(b => b.Filial)
                 .IsRequired();
+
+            builder.HasMany(b => b.Produto)
+                .WithOne(b => b.Venda)
+                .HasForeignKey("Id_Produto")
+                .HasConstraintName("Fk_Id_Produto_Produto");
 
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Api.Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -15,7 +16,15 @@ namespace Domain.Entities
 
         public int Filial { get; private set; }
 
+        public IEnumerable<ProdutoEntity> Produto { get; private set; }
+
         public ComprarEntity() { }
+
+        public ComprarEntity(Guid id, DateTime createAt) 
+        {
+            Id = id;
+            CreateAt = createAt;
+        }
 
         public void AlterarNumeroCompra(int numeroCompra) => Numero = numeroCompra;
 

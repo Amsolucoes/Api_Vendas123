@@ -17,7 +17,7 @@ namespace Domain.Entities
 
         public bool Cancelado { get; private set; }
 
-        public Guid Vendas { get; private set; }
+        public ComprarEntity Venda {  get; private set; }
 
         public ProdutoEntity() { }
 

@@ -1,5 +1,4 @@
-﻿using Domain.Dtos.Comprar;
-using System;
+﻿using System;
 
 namespace Domain.Models
 {

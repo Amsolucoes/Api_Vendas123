@@ -3,6 +3,7 @@ using System;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20241001124445_VendasMigration_AjusteNumero")]
+    partial class VendasMigration_AjusteNumero
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,11 +52,11 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d311c19b-8329-4d8c-bfd3-79ba3dcd9d66"),
-                            CreateAt = new DateTime(2024, 10, 1, 10, 31, 21, 709, DateTimeKind.Local).AddTicks(8942),
-                            Email = "andreluis@mail.com",
+                            Id = new Guid("84adb3ea-7b1f-4ecb-baf2-d6f80e56021e"),
+                            CreateAt = new DateTime(2024, 10, 1, 8, 44, 44, 954, DateTimeKind.Local).AddTicks(4279),
+                            Email = "mfrinfo@mail.com",
                             Name = "Administrador",
-                            UpdateAt = new DateTime(2024, 10, 1, 10, 31, 21, 709, DateTimeKind.Local).AddTicks(8955)
+                            UpdateAt = new DateTime(2024, 10, 1, 8, 44, 44, 954, DateTimeKind.Local).AddTicks(4292)
                         });
                 });
 
@@ -64,8 +66,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("Cliente")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Cliente")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
@@ -105,12 +108,6 @@ namespace Data.Migrations
                     b.Property<decimal>("Desconto")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<Guid?>("Id_Produto")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("Id_Venda")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -127,26 +124,12 @@ namespace Data.Migrations
                     b.Property<decimal>("ValorUnitario")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<Guid>("Vendas")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Id_Venda");
-
                     b.ToTable("Produtos", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.ProdutoEntity", b =>
-                {
-                    b.HasOne("Domain.Entities.ComprarEntity", "Venda")
-                        .WithMany("Produto")
-                        .HasForeignKey("Id_Venda")
-                        .HasConstraintName("Fk_Id_Venda_Venda");
-
-                    b.Navigation("Venda");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ComprarEntity", b =>
-                {
-                    b.Navigation("Produto");
                 });
 #pragma warning restore 612, 618
         }
