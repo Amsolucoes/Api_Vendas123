@@ -6,7 +6,7 @@ Baixar Instalador : Mysql Workbanch v. 8.0.31 para cima para rodar na base local
 
 Para rodar com seu BD local precisa mudar as configurações da string de conexão dentro do projeto Application => Startup.
 
-Para criar as tabelas no banco rodas dotnet ef migrations add CriarTabelaProdutos no arquivo App.Data.
+Para criar as tabelas no banco precisa rodar dotnet ef migrations add CriarTabelaProdutos, no arquivo App.Data.
 
 Email Administrador cadastrado:
 andreluis@mail.com para liberar acesso do Bearer
