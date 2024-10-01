@@ -1,7 +1,7 @@
-using Api.Domain.Interfaces;
 using AutoMapper;
 using Domain.Dtos.Comprar;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Interfaces.Services.Produtos;
 using System;
 using System.Collections.Generic;

@@ -22,7 +22,7 @@ namespace Api.Data.Test
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddDbContext<MyContext>(o =>
-                o.UseMySql($"Persist Security Info=True;Server=localhost;Database={dataBaseName};User=root;Password=Al*301983*", ServerVersion.AutoDetect($"Persist Security Info=True;Server=localhost;Database={dataBaseName};User=root;Password=Al*301983*")),
+                o.UseMySql("Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI_Integration;Uid=root;Pwd=Al*301983*", ServerVersion.AutoDetect("Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI_Integration;Uid=root;Pwd=Al*301983*")),
                   ServiceLifetime.Transient
             );
 

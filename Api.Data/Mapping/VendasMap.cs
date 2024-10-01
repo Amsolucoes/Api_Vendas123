@@ -27,11 +27,6 @@ namespace Data.Mapping
             builder.Property(b => b.Filial)
                 .IsRequired();
 
-            builder.HasMany(b => b.Produto)
-                .WithOne(b => b.Venda)
-                .HasForeignKey("Id_Produto")
-                .HasConstraintName("Fk_Id_Produto_Produto");
-
         }
     }
 }

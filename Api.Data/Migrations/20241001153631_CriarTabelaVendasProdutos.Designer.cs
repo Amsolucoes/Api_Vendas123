@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20241001124445_VendasMigration_AjusteNumero")]
-    partial class VendasMigration_AjusteNumero
+    [Migration("20241001153631_CriarTabelaVendasProdutos")]
+    partial class CriarTabelaVendasProdutos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,12 +52,27 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("84adb3ea-7b1f-4ecb-baf2-d6f80e56021e"),
-                            CreateAt = new DateTime(2024, 10, 1, 8, 44, 44, 954, DateTimeKind.Local).AddTicks(4279),
-                            Email = "mfrinfo@mail.com",
+                            Id = new Guid("a1de6e75-5e23-4455-964e-76a20e801ff5"),
+                            CreateAt = new DateTime(2024, 10, 1, 11, 36, 31, 48, DateTimeKind.Local).AddTicks(6602),
+                            Email = "andreluis@mail.com",
                             Name = "Administrador",
-                            UpdateAt = new DateTime(2024, 10, 1, 8, 44, 44, 954, DateTimeKind.Local).AddTicks(4292)
+                            UpdateAt = new DateTime(2024, 10, 1, 11, 36, 31, 48, DateTimeKind.Local).AddTicks(6614)
                         });
+                });
+
+            modelBuilder.Entity("ComprarEntityProdutoEntity", b =>
+                {
+                    b.Property<Guid>("ComprasId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProdutosId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ComprasId", "ProdutosId");
+
+                    b.HasIndex("ProdutosId");
+
+                    b.ToTable("ComprarEntityProdutoEntity");
                 });
 
             modelBuilder.Entity("Domain.Entities.ComprarEntity", b =>
@@ -66,9 +81,8 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Cliente")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
+                    b.Property<Guid>("Cliente")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
@@ -99,37 +113,38 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<bool>("Cancelado")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("Desconto")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<decimal>("ValorUnitario")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<Guid>("Vendas")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Produtos", (string)null);
+                });
+
+            modelBuilder.Entity("ComprarEntityProdutoEntity", b =>
+                {
+                    b.HasOne("Domain.Entities.ComprarEntity", null)
+                        .WithMany()
+                        .HasForeignKey("ComprasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ProdutoEntity", null)
+                        .WithMany()
+                        .HasForeignKey("ProdutosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -18,23 +18,6 @@ namespace Data.Mapping
 
             builder.Property(p => p.Preco)
                 .IsRequired();
-
-            builder.Property(p => p.Quantidade)
-                .IsRequired(true);
-
-            builder.Property(p => p.Desconto)
-                .IsRequired(true);
-
-            builder.Property(p => p.ValorTotal)
-                .IsRequired(true);
-
-            builder.Property(p => p.Cancelado)
-                .IsRequired(true);
-
-            builder.HasOne(p => p.Venda)
-                .WithMany(p => p.Produto)
-                .HasForeignKey("Id_Venda")
-                .HasConstraintName("Fk_Id_Venda_Venda");
         }
     }
 }

@@ -38,20 +38,22 @@ namespace Service.Services
             var model = _mapper.Map<CompraModel>(compra);
             var entity = _mapper.Map<ComprarEntity>(model);
 
-            if (compra.ProdutosIds != null && compra.ProdutosIds.Any())
-            {
-                foreach (var produtoId in compra.ProdutosIds)
-                {
-                    var produto = await _produtoRepository.SelectAsync(produtoId);
-                    if (produto != null)
-                    {
-                        entity.AdicionarProduto(produto);
-                    }
-                }
-            }
+            //if (compra.ProdutosIds != null && compra.ProdutosIds.Any())
+            //{
+            //    foreach (var produtoId in compra.ProdutosIds)
+            //    {
+            //        var produto = await _produtoRepository.SelectAsync(produtoId);
+
+            //        if (produto != null)
+            //        {
+            //            entity.AdicionarProduto(produto);
+            //        }
+            //    }
+            //}
 
             var result = await _repository.InsertAsync(entity);
-            return _mapper.Map<ComprarEntity>(result);
+
+            return _mapper.Map<CompraDto>(result);
         }
 
         public async Task<CompraDto> Put(CompraDto compra)

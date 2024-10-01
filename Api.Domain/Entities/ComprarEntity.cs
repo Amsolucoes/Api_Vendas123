@@ -23,18 +23,14 @@ namespace Domain.Entities
             Produtos = new List<ProdutoEntity>();
         }
 
-        // Métodos de alteração
-        public void AdicionarProduto(ProdutoEntity produto) => Produtos.Add(produto);
-
-        public IEnumerable<ProdutoEntity> Produto { get; private set; }
-
-        public ComprarEntity() { }
-
-        public ComprarEntity(Guid id, DateTime createAt) 
+        public ComprarEntity(Guid id, DateTime createAt)
         {
             Id = id;
             CreateAt = createAt;
         }
+
+        // Métodos de alteração
+        public void AdicionarProduto(ProdutoEntity produto) => Produtos.Add(produto);
 
         public void AlterarNumeroCompra(int numeroCompra) => Numero = numeroCompra;
 

@@ -8,6 +8,8 @@
 
         public decimal ValorUnitario { get; set; }
 
+        public decimal Preco { get; set; }
+
         public decimal Desconto { get; set; }
 
         public decimal ValorTotal { get; set; }
