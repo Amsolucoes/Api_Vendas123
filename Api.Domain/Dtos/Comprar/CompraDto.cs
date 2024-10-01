@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Dtos.Comprar
 {
@@ -13,5 +14,6 @@ namespace Domain.Dtos.Comprar
         public decimal ValorTotalVendas { get; set; }
 
         public int Filial { get; set; }
+        public List<Guid> ProdutosIds { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Api.Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -32,5 +33,6 @@ namespace Domain.Entities
         public void AlterarValorTotal(decimal valorTotalProdutos) => ValorTotal = valorTotalProdutos;
 
         public void AlterarCancelado(bool cancelado) => Cancelado = cancelado;
+        public ICollection<ComprarEntity> Compras { get; set; }
     }
 }
